@@ -1,9 +1,37 @@
 package br.senai.sp.Modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+@JsonIgnoreProperties("tarefa")
+@Entity
 public class SubTarefa {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String decricao;
+	@Size(min=3,message="A descrição deve ter pelo menos 3 caracteres")
+	private String descricao;
 	private boolean feita;
+	
+	@ManyToOne
+	private Tarefa tarefa;
+	
+	
+
+	public Tarefa getTarefa() {
+		return tarefa;
+	}
+
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
+	}
 
 	public Long getId() {
 		return id;
@@ -13,12 +41,12 @@ public class SubTarefa {
 		this.id = id;
 	}
 
-	public String getDecricao() {
-		return decricao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDecricao(String decricao) {
-		this.decricao = decricao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public boolean isFeita() {
