@@ -5,6 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 public class Usuario {
 	@Id
@@ -12,6 +17,7 @@ public class Usuario {
 	private Long id;
 	private String nome;
 	private String email;
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String senha;
 
 	public Long getId() {
@@ -43,7 +49,8 @@ public class Usuario {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		Md5PasswordEncoder encoder = new Md5PasswordEncoder();		
+		this.senha = encoder.encodePassword(senha, null);
 	}
 
 }
