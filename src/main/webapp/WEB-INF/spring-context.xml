@@ -36,6 +36,9 @@
 	</bean>
 
 	<tx:annotation-driven />
+	<mvc:interceptors>
+	<bean class="br.senai.sp.Intercepitor.JWTIntercepitor"/>
+	</mvc:interceptors>
 
 
 
